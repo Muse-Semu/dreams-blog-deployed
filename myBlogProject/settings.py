@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'myBlogProject.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# '''
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -111,7 +111,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-# '''
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -200,6 +200,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Postgre sql Live on render intregration
 import dj_database_url
 
-# DATABASES ={
-#     'default':dj_database_url.parse(env('DB_URL'))
-# }
+DATABASES ={
+    'default':dj_database_url.parse(env('DB_URL'))
+}
