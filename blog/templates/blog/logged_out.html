@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{%block title%}Loged out{%endblock%}
+{% block content %}
+<style>
+    .form-box {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+    }
+    @media (max-width: 941px) {
+        .head-bar,.form-box  {
+            width: 100%;
+        }
+        p{
+            line-height: 2;
+        }
+
+      }
+</style>
+<div class="form-box">
+    <p>
+        Your logged out <a id="save-btn" href="{% url 'home' %}">continue</a> now.
+    </p>
+</div>
+
+{% endblock %}

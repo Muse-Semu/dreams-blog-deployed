@@ -530,3 +530,10 @@ def getPostAjax(request):
 def jsonHome(request) :
     posts= Post.objects.all()
     return render(request,'blog/a.html',{'posts':posts})  
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home')  # Replace 'home' with the desired URL name or path
