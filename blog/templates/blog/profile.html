@@ -1,0 +1,83 @@
+{%extends 'blog/base.html'%}
+{%block title%} Profile {%endblock%}
+{%block link%}
+{%endblock%}
+{%load static %}
+{%block content%}
+
+
+<head>
+  <link rel="stylesheet" href="{%static 'css/profile.css'%}">
+  <style>
+    body{
+            margin-top: 5rem;
+        }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="head-bar">
+    <h2>Profile</h2>
+    <div class="addm">
+      <a id="save-btn" href="{%url 'change-password'%}">Change Password</a>
+      <a id="back-btn" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a></h1>
+    </div>
+
+  </div>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="profile-image">
+       {%if user.profile.photo%}
+      <a id="img-link" href="{{user.profile.get_photo_url}}" target="_blank"><img src="{{user.profile.photo.url}}"
+          alt=''></a>
+          {%endif%}
+
+      <h1>{{user.username}}</h1>
+
+      {%if user.profile.bios%}
+      <p id="bios">{{user.profile.bios|truncatewords:26}}</p><br>
+
+      {%endif%}
+      <div class="change-photo">
+        {{p_form.photo}}
+      </div>
+
+    </div>
+    <div class="general-info">
+      <h3 id="header-form">General Ingormation</h3>
+      <p><label for="">{{u_form.username.label}}</label><br>
+        {{u_form.username}}</p>
+      <p><label for="">{{u_form.email.label}}</label><br>
+        {{u_form.email}} </p>
+      <p><label for="">{{u_form.first_name.label}}</label> <br>
+        {{u_form.first_name}} </p>
+      <p><label for="">{{u_form.last_name.label}}</label><br>
+        {{u_form.last_name}} </p>
+      <p><label for="">{{p_form.bios.label}} </label> <br>{{p_form.bios}}</p>
+
+
+    </div>
+
+    <div class="social-link">
+      <h3 id="header-form">Social Media Links</h3>
+
+      <p><label for="">{{p_form.youtube_url.label}} {{p_form.youtube_url}}</label></p>
+      <p><label for="">{{p_form.facebook_url.label}} {{p_form.facebook_url}}</label></p>
+      <p><label for="">{{p_form.instagram_url.label}} {{p_form.instagram_url}}</label></p>
+      <p><label for="">{{p_form.twitter_url.label}} {{p_form.twitter_url}}</label></p>
+      <p><label for="">{{p_form.telegram_url.label}} {{p_form.telegram_url}}</label></p>
+
+    </div>
+
+    <button type="submit" name="sub" id="save-btn">Save All</button>
+  </form>
+
+
+
+
+
+</body>
+{%endblock%}

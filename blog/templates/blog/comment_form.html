@@ -1,0 +1,43 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+<style>
+    .head-bar,
+    .form-box {
+        width: 50%;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        max-height: 200px;
+    }
+
+    @media (max-width: 460px) {
+
+        .head-bar,
+        .form-box {
+            width: 100%;
+        }
+
+    }
+</style>
+
+
+
+<div class="head-bar">
+    <h3>Comments here</h3>
+
+    <a id="back-btn" href="javascript:history.go(-1)">&#8592;Back</a>
+</div>
+<div class="form-box">
+    <form action="" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <br>
+
+        <button type="submit" id="save-btn" value="{{post.id}}" >Add Comment</button>
+    </form>
+
+</div>
+
+{%endblock%}

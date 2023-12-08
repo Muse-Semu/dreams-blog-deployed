@@ -1,0 +1,41 @@
+{%extends 'blog/base.html'%}
+{%block title%} Add-Replay {%endblock%}
+{%block content%}
+
+<head>
+    <style>
+        .form-box,
+        .head-bar {
+            width: 50%;
+        }
+
+        textarea {
+            width: 100%;
+            max-height: 200px;
+            padding: 10px;
+        }
+
+        @media (max-width: 500px) {
+
+            .head-bar,
+            .form-box {
+                width: 100%;
+
+            }
+        }
+    </style>
+</head>
+<div class="head-bar">
+    <h3> Reply</h3>
+    <a id="back-btn" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a>
+</div>
+<div class="form-box">
+    <form action="" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <br>
+
+        <button id="save-btn" type="submit">Reply</button>
+    </form>
+</div>
+{%endblock%}

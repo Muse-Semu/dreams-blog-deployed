@@ -1,0 +1,65 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block title%} Post-Forms {%endblock%}
+{%block content%}
+
+<head>
+    <style>
+        .head-bar,.form-box  {
+           
+            width: 50%;
+           
+        }
+
+      p{
+        line-height: 1.5;
+      }
+      
+     
+      select{
+        padding: 6px;
+      }
+      .form-box textarea{
+        
+        max-width: 650px;
+        min-height: 60px;
+      }
+
+      @media (max-width: 941px) {
+        .head-bar,.form-box {
+            width: 100%;
+        }
+        p{
+            line-height: 2;
+        }
+
+      }
+      
+    </style>
+</head>
+
+<body>
+    <div class="head-bar">
+        <h3>Post Form</h3>
+        <a id='back-btn' href="javascript:history.go(-1)"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="form-box">
+
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="post-form">
+                {%csrf_token%}
+                {{form.media}}
+                {{form.as_p}}
+                <br>
+                <!-- <input type="submit" name="submit" id="subm" value="Save Post"><br><br>
+                 -->
+                <button type="submit" name="submit" id="save-btn">Save Post</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
+{%endblock content%}

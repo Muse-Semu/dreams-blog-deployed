@@ -1,0 +1,321 @@
+{%extends 'blog/base.html'%}
+{%block title%} Post-detail {%endblock%}
+{%block content%}
+
+<head>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    .head-bar {
+
+      display: flex;
+      justify-content: space-between;
+      width: 50%;
+
+      box-shadow: 3px 15px 20px rgba(136, 133, 133, 0.1);
+      padding: 10px;
+    }
+
+    .head-bar div {
+      display: flex;
+      align-items: center;
+    }
+
+    .head-bar img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .detail {
+      margin: auto;
+      width: 50%;
+      display: grid;
+      box-shadow: whitesmoke 3px 3px 30px 0.1px;
+      margin-bottom: 5rem;
+    }
+
+    #post-image {
+      width: 100%;
+
+    }
+
+     .fa-thumbs-up:hover{
+      color:blue;
+      font-size: 31px;
+    }
+
+    .articles {
+      width: 100%;
+
+    }
+
+
+.fa-thumbs-up{
+  font-size: 30px;
+}
+
+
+
+
+
+    .ct-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    .ct-title small {
+      font-size: 24px;
+      font-weight: 400;
+      font-family: 'san-serif';
+      color: black;
+      margin-bottom: 5px;
+    }
+
+    .ct-title h6 {
+      font-size: 18px;
+      color: rgb(143, 137, 137);
+      margin-left: 0;
+
+    }
+
+
+
+
+
+    .articles h3 {
+      line-height: 1;
+      font-weight: 300;
+      font-size: 20px;
+      margin: 1rem 0 0.5rem 0;
+      padding: 5px;
+      color: rgb(37, 37, 36);
+    }
+
+    p {
+
+      color: rgb(143, 137, 137);
+      line-height: 1;
+      display: block;
+      margin-block-start: 5px;
+      margin-block-end: 5px;
+      margin-inline-start: 0;
+      margin-inline-end: 0px;
+      padding: 5px 10px;
+      font-size: 18px;
+    }
+
+
+
+    .tp-img {
+      margin: 5px 0;
+      padding: 8px;
+    }
+
+    .tp-img h2 {
+      font-size: 20px;
+      color: rgb(41, 39, 39);
+      font-weight: 500;
+      margin-bottom: 3px;
+
+    }
+
+    .tp-img h6 {
+      font-size: 10px;
+      color: dimgrey;
+
+    }
+
+    .opp-icon a,
+    .like {
+      padding: 2px;
+      font-size: 30px;
+      margin-left: 0.5rem;
+    }
+
+    #delete-btn {
+      color: red;
+    }
+
+    #comment {
+      font-size: 30px;
+      color: blue;
+      font-family: serif;
+    }
+
+    #comment span,
+    #before span,
+    #after span,
+    #like span {
+      font-size: 15px;
+      padding-left: 3px;
+      color: green;
+    }
+
+    #edit-btn {
+      color: green;
+    }
+
+    #back-btn {
+      padding: 1rem;
+      color: blue;
+      font-size: 30px;
+     
+    }
+
+    #before {
+      font-size: 30px;
+      color: rgba(65, 61, 61, 0.5);
+    }
+
+    #after {
+      font-size: 30px;
+      color: rgb(0, 26, 255);
+    }
+
+    #like {
+      font-size: 30px;
+      color: rgba(65, 61, 61, 0.5);
+    }
+
+    .opp-icon {
+      display: flex;
+    }
+
+    form button {
+      background-color: transparent;
+      outline: none;
+      border: none;
+    }
+
+    #cat-header {
+      padding-bottom: 5px;
+      padding-top: 5px;
+    }
+
+    @media (max-width: 941px) {
+
+      .head-bar,
+      .detail {
+        width: 100%;
+      }
+
+      .opp-icon a {
+        padding: 2px;
+        margin-left: 0.3rem;
+      }
+
+      .detail {
+        width: 100%;
+      }
+
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      max-height: 600px;
+    }
+  </style>
+</head>
+<div class="head-bar">
+ <div>
+
+        {% if request.user == post.user %}
+            <a href="{% url 'profile' %}">
+                {% if post.user.profile.photo %}
+                    <img src="{{ post.user.profile.photo.url }}" alt="">
+                {% else %}
+                    <!-- Handle the case where the user has no profile photo -->
+                    <p>No profile photo available</p>
+                {% endif %}
+                <h3>{{ post.user|title }} </h3>
+            </a>
+        {% else %}
+            <a href="{% url 'get-profile' post.user.id %}">
+                {% if post.user.profile.photo %}
+                    <img src="{{ post.user.profile.photo.url }}" alt="">
+                {% else %}
+                    <p></p>
+                {% endif %}
+                <h3>{{ post.user|title }} </h3>
+            </a>
+        {% endif %}
+  
+       
+</div>
+
+  <div><a id="back-btn" href="javascript:history.go(-1)"><i class="fa fa-times" aria-hidden="true"></i></a>
+  </div>
+</div>
+
+
+</div>
+
+<div class="detail">
+  <div class="opp-icon">
+    {%if request.user == post.user%}
+    <a id='edit-btn' title="Edit" href="{%url 'post-update' post.id%} "><i class="fas fa-edit"></i> </a>
+
+    <a id='delete-btn' title="Delete" href="{%url 'delete_post' post.pk%}"><i class="fa fa-trash"
+        aria-hidden="true"></i>
+    </a>
+
+    <i id="like" class="fa fa-thumbs-up like"><span>{{post.liked.all.count}}</span></i>
+    {%else%}
+<form action="{%url 'like_post' post.id%}" class="like-form" method="POST" id="{{post.id}}">
+  {%csrf_token%}
+  <button type="submit" id="like-btn" name="post_id" value="{{post.id}}" class="ui like-btn{{post.id}}">
+    {%if not request.user in post.liked.all %}
+    <i id="not-liked{{post.id}}" class="fa fa-thumbs-up"></i>
+    {%else%}
+    <i id="liked{{post.id}}" style="color:blue" class="fa fa-thumbs-up"></i>
+    {%endif%}
+    <span id="count" class="like-count1{{post.id}}">{{post.liked.all.count}} </span>
+  </button>
+</form>
+    
+    {%endif%}
+    <a id="comment" title="Comments" href="{%url 'view-comment' post.pk%}">
+      <i class="fa fa-comment"><span>{{post.comment.all.count}}</span></i>
+    </a>
+  </div>
+
+  <div class="post-image">
+    <div class="tp-img">
+      <h3 id="cat-header">#{{post.catagory|upper}}</h3>
+      <h2>{{post.title}}</h2>
+      <h6>Published : {{post.created|date}} | last updated : {{post.whenupdated}}</h6>
+    </div>
+    {%if post.videos%}
+    <video src="{{post.videos.url}}" controls loop autoplay></video>
+    {%elif post.image%}
+    <img id="post-image" src="{{post.image.url}}" alt="" />
+    {%else%}
+    <img src="" alt="No image" height="100px">
+    {%endif%}
+
+  </div>
+  <div class="articles">
+
+    <h3>{{post.discription}}</h3>
+
+    {{post.articles|safe|linebreaks}}
+
+  </div>
+  {%for cmt in comment%}
+  <h3>{{post.cmt.comment}}</h3>
+  {%endfor%}
+</div>
+<script>
+   
+</script>
+{%endblock%}

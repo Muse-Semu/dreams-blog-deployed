@@ -1,0 +1,182 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#save-btn {
+  /* margin-right: 10px; */
+  margin: auto;
+  margin-bottom: 1rem;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: "calibri";
+  outline: none;
+  border: none;
+  background-color: rgba(151, 140, 140, 0.1);
+  color: black;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+header {
+  margin: 0;
+  z-index: 3;
+  width: 100%;
+}
+
+#edit-btn {
+  color: green;
+}
+
+#delete-btn {
+  color: red;
+}
+
+li a {
+  transition: 0.5s ease-in-out;
+}
+
+.most-like-container a:hover {
+  text-decoration: underline;
+}
+
+li a:hover {
+  background-color: rgba(136, 133, 133, 0.1);
+}
+
+#save-btn:hover {
+  background-color: rgb(230, 219, 215);
+  color: white;
+}
+
+#add-icon {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: "calibri";
+  background-color: orangered;
+  border-radius: 3%;
+  margin-left: 1rem;
+}
+
+/* #add-post {
+      background-color: orangered;
+      font-size: 18px;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 3%;
+
+    } */
+
+.add {
+  margin-top: 1.5rem;
+  margin-left: 10rem;
+}
+
+.addm {
+  margin-top: 10px;
+}
+
+.form-box {
+  margin: auto;
+  display: grid;
+  box-shadow: whitesmoke 3px 3px 30px 0.1px;
+  margin-bottom: 5rem;
+  padding: 20px;
+}
+
+.form-box p {
+  line-height: 2;
+}
+
+.head-bar {
+  margin: 6rem auto 3rem auto;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+
+  box-shadow: 3px 15px 20px rgba(136, 133, 133, 0.1);
+  padding: 10px;
+}
+
+label {
+  color: green;
+  font-size: 20px;
+  font-weight: 500;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+}
+
+select {
+  padding: 5px;
+  width: 100%;
+  margin: auto;
+}
+
+textarea {
+  width: 100%;
+  max-height: 100px;
+  padding: 10px;
+  max-width: 100%;
+}
+
+p {
+  padding: 0px;
+  line-height: 3;
+  width: 100%;
+}
+
+.about-us {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dev1 {
+  box-shadow: 1px 3px 1px rgba(136, 133, 133, 0.1);
+  width: 30%;
+  margin-right: 1rem;
+  border: 1px solid;
+  margin: auto;
+  height: 300px;
+  margin-bottom: 3rem;
+}
+
+.fa-facebook {
+  color: blue;
+}
+
+.fa-instagram {
+  color: violet;
+}
+
+.fa-twitter {
+  color: rgb(125, 125, 247);
+}
+
+.fa-youtube {
+  color: red;
+}
+
+.fa-telegram {
+  color: rgb(61, 61, 207);
+}
+
+@media (max-width: 941px) {
+  .head-bar,
+  .form-box {
+    width: 100%;
+  }
+
+  p {
+    line-height: 2;
+  }
+
+  #save-btn {
+    width: 100%;
+
+    margin-right: 2rem;
+  }
+}

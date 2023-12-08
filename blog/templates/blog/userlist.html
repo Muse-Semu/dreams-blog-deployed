@@ -1,0 +1,182 @@
+{%extends 'blog/base.html'%}
+{%block content%}
+
+<head>
+    <style>
+        .head-bar,
+        .form-box {
+            width: 80%;
+            margin: auto;
+        }
+
+        .for-small {
+            display: none;
+        }
+
+        .form-box {
+            margin-bottom: 7rem;
+        }
+
+        .head-bar {
+            margin-top: 3rem;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        #th {
+            background-color: azure;
+
+        }
+
+        th {
+            padding: 5px;
+        }
+
+        #add-icon {
+            margin-right: 0;
+            color: white;
+        }
+
+        @media (max-width: 941px) {
+
+            .head-bar,
+            .form-box {
+                width: 90%;
+            }
+
+            .form-box {
+                box-shadow: none;
+            }
+
+            p {
+                line-height: 2;
+            }
+
+            table {
+                display: none;
+            }
+
+            .for-small {
+                
+                display: contents;
+                margin-bottom: 5rem;
+                display: grid;
+                
+            }
+
+            .user-container{
+               padding: 3px;
+               margin-left: 2rem;
+               margin-top: 2rem;
+              
+            }
+
+        }
+    </style>
+</head>
+
+
+<div class="head-bar">
+    <h3>All user{{ct|pluralize}} ({{ct}}) </h3>
+    <div class="addm">
+        <a id="save-btn" href="{%url 'add-user'%}">&#x2b;Add User</a>
+        <a id="add-icon" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a>
+
+    </div>
+</div>
+
+<div class="form-box">
+    <table cellpadding="30" cellspacing="20" bgcolor="transparent" align="center">
+        <tr id="th">
+            <th id="user-id">User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Permissions</th>
+
+        </tr>
+
+        {%for user in user%}
+        <tr>
+            <td id="user-id">
+                <h3>{{user.id }}</h3>
+            </td>
+
+            <td>
+                {%if request.user.id == user.id%}
+                <a href="{%url 'profile'%}">{{user.username}}</a>
+                {%else%}
+                <a href="{%url 'get-profile' user.id%}"> {{user.username}}</a>
+                {%endif%}
+            </td>
+            <td id="user-email">
+                <h3>{{user.email}}</h3>
+            </td>
+
+
+            <td>
+                {%if user.is_superuser and user.is_active%}
+                <h3 style="color:rgb(9, 32, 243)">Superuser</h3>
+                {%elif user.is_staff and user.is_active%}
+                <h3 style="color:rgb(0, 255, 179)">Staff</h3>
+                {%elif user.is_active%}
+                <h3 style="color:rgb(9, 255, 0)">Active</h3>
+                {%else%}
+                <h3 style="color:red">Deactivated</h3>
+                {%endif%}
+            </td>
+
+        </tr>
+        {% empty %}
+        <h3>No user</h3>
+
+        {%endfor%}
+
+    </table>
+</div>
+
+
+
+
+{%for user in user%}
+<div class="for-small">
+    <div class="user-container">
+        <div id="userid">
+            <h3>{{user.id }}</h3>
+        </div>
+
+        <div id="username">
+            {%if request.user.id == user.id%}
+            <a href="{%url 'profile'%}">{{user.username}}</a>
+            {%else%}
+            <a href="{%url 'edit_user' user.id%}"> {{user.username}}</a>
+            {%endif%}
+        </div>
+
+        <div id="useremail">
+            <h3>{{user.email}}</h3>
+        </div>
+
+
+        <div id="userstatus">
+
+            {%if user.is_superuser and user.is_active%}
+            <h3 style="color:rgb(9, 32, 243)">Superuser</h3>
+            {%elif user.is_staff and user.is_active%}
+            <h3 style="color:rgb(0, 255, 179)">Staff</h3>
+            {%elif user.is_active%}
+            <h3 style="color:rgb(9, 255, 0)">Active</h3>
+            {%else%}
+            <h3 style="color:red">Deactivated</h3>
+            {%endif%}
+        </div>
+
+    </div>
+    {% empty %}
+    <h3>No user</h3>
+</div>
+{%endfor%}
+
+
+{%endblock%}

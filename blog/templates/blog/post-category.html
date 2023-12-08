@@ -1,0 +1,244 @@
+{%extends './base.html'%}
+{%block title%} Post-Category{%endblock%}
+{%load static%}
+{%block content%}
+<head>
+    <link rel="stylesheet" href="{%static 'css/post-category.css'%}">
+    <style>
+        .heading  {
+            margin-top: 5rem;
+        }
+        .text{}
+    </style>
+</head>
+
+<body>
+    <div class="search-section">
+        <form class="search2" action="" method="get">
+            <input type="text" name="search-area" class="text" placeholder="search posts here">
+    
+            <i class="fa fa-search"></i>
+    
+        </form>
+    </div>
+    <section class="heading">
+
+        <div class="cat-btn" cat-btn>
+
+            <span>
+                <i class="fas fa-bars"></i>Category
+            </span>
+        </div>
+
+
+
+        <div class="cat-link" id="cat-link">
+            <div class="cancel-btn" cancel-btn>
+                <span>
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <a href="{%url 'post-category' 'all'%}" class="btn">All</a>
+            <a href="{%url 'post-category' 'sports'%}" class="btn">Sports</a>
+            <a href="{%url 'post-category' 'fashion'%}" class="btn">Fashion</a>
+            <a href="{%url 'post-category' 'science'%}" class="btn">Science</a>
+
+            <a href="{%url 'post-category' 'entertainment'%}" class="btn">Entertainment</a>
+            <a href="{%url 'post-category' 'technology'%}" class="btn">Technology</a>
+            <a href="{%url 'post-category' 'other'%}" class="btn">Others</a>
+            <a href="{%url 'post-category' 'video'%}" class="btn">Videos</a>
+
+        </div>
+
+
+
+        
+
+    </section>
+    <!--Section for latest videos  -->
+    <section>
+        <div class="most-like-all-wrapper">
+            {%if search%}
+            <h1 id="ml-header">{{count}} result{{count|pluralize}} for "{{search}}"</h1>
+            {%elif yourpost%}
+            <h1 id="ml-header">You have {{count}} post{{count|pluralize}}</h1>
+            {%else%}
+            <h1 id="ml-header">Latest Posts in {{cats|title}} ({{count}})</h1>
+            {%endif%}
+            <div class="most-like">
+
+                {%for post in post%}
+                <a href="{%url 'post-detail' post.id%}">
+                    <section class="most-liked-container">
+
+
+                        {%if post.videos%}
+                        <div class="posted-video">
+                            <video src="{{post.video.url}}" height="200" spellcheck="true" controls></video>
+                            <i class="fa-solid fa-video"> <br>
+                                <span id="span-video">PLAY VIDEO</span></i>
+                        </div>
+
+
+                        {%else%}
+                        <img src="{{post.get_image_url}}" height="200px">
+                        {%endif%}
+
+                        <div class="liked-about-posts">
+                            <br>
+
+                            <span>#{{post.catagory|upper}}</span>
+                            {%if request.user == post.user%}
+                            <h6>
+                                <a href="{%url 'profile'  %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%else%}
+                            <h6>
+                                <a href="{%url 'get-profile' post.user.id %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%endif%}
+
+                            <div class="ct-like">
+                                <a id="comment" title="Comments" href="{%url 'view-comment' post.pk%}">
+                                    <i class="fa fa-comment"><span>{{post.comment.all.count}}</span></i>
+                                </a>
+                                <form action="{%url 'like_post' post.id%}" class="like-form" method="POST"
+                                    id="{{post.id}}">
+                                    {%csrf_token%}
+                                    <button type="submit" id="like-btn" name="post_id" value="{{post.id}}"
+                                        class="ui like-btn{{post.id}}">
+                                        {%if not request.user in post.liked.all %}
+                                        <i id="not-liked{{post.id}}" class="fa fa-thumbs-up"></i>
+                                        {%else%}
+                                        <i id="liked{{post.id}}" style="color:blue" class="fa fa-thumbs-up"></i>
+                                        {%endif%}
+                                        <span id="count" class="like-count{{post.id}}">{{post.liked.all.count}} </span>
+                                    </button>
+                                </form>
+                            </div>
+                            <a id="detail" href="{%url 'post-detail' post.id%}">
+                                <h3 id='posts-title'>{{post.title|truncatewords:10|title}}</h3>
+                                <br>
+                                <p id="">{{post.discription|truncatewords:20}}</p>
+                            </a>
+
+                            <br>
+                        </div>
+
+
+
+                    </section>
+                </a>
+                {%endfor%}
+            </div>
+
+        </div>
+    </section>
+
+    <!--Section for Most Liked Posts  -->
+    <section>
+        {%if mostLiked%}
+        <div class="most-like-all-wrapper">
+            {%if search%}
+            <h1 id="ml-header">3 Most-Liked for "{{search}}"</h1>
+            {%else%}
+            <h1 id="ml-header">Most Liked in {{cats|title}} (6)</h1>
+            {%endif%}
+
+
+            <div class="most-like">
+                {%for post in mostLiked%}
+                <section class="most-liked-container">
+                    <a href="{%url 'post-detail' post.id%}">
+
+                        {%if post.videos%}
+                        <div class="posted-video">
+                            <video src="{{post.video.url}}" height="200" spellcheck="true" controls></video>
+                            <i class="fa-solid fa-video"> <br>
+                                <span id="span-video">PLAY VIDEO</span></i>
+                        </div>
+
+
+                        {%else%}
+                        <img src="{{post.get_image_url}}" height="200px">
+                        {%endif%}
+
+                        <div class="liked-about-posts">
+                            <br>
+                            <span>#{{post.catagory|upper}}</span>
+                            {%if request.user == post.user%}
+                            <h6>
+                                <a href="{%url 'profile'  %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%else%}
+                            <h6>
+                                <a href="{%url 'get-profile' post.user.id %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%endif%}
+                            <div class="ct-like">
+                                <a id="comment" title="Comments" href="{%url 'view-comment' post.pk%}">
+                                    <i class="fa fa-comment"><span>{{post.comment.all.count}}</span></i>
+                                </a>
+                                <form action="{%url 'like_post' post.id%}" class="like-form" method="POST"
+                                    id="{{post.id}}">
+                                    {%csrf_token%}
+                                    <button type="submit" id="like-btn" name="post_id" value="{{post.id}}"
+                                        class="ui like-btn{{post.id}}">
+                                        {%if not request.user in post.liked.all %}
+                                        <i id="not-liked1{{post.id}}" class="fa fa-thumbs-up"></i>
+                                        {%else%}
+                                        <i id="liked1{{post.id}}" style="color:blue" class="fa fa-thumbs-up"></i>
+                                        {%endif%}
+                                        <span id="count" class="like-count1{{post.id}}">{{post.liked.all.count}} </span>
+                                    </button>
+                                </form>
+                            </div>
+                            <a id="detail" href="{%url 'post-detail' post.id%}">
+                                <h3 id='posts-title'>{{post.title|truncatewords:10|title}}</h3>
+                                <br>
+                                <p id="">{{post.discription|truncatewords:20}}</p>
+                            </a>
+                            <br>
+                        </div>
+
+
+
+                </section>
+                </a>
+                {%endfor%}
+            </div>
+
+        </div>
+        {%endif%}
+    </section>
+
+
+
+    <script>
+        const catBtn = document.querySelector('.cat-btn')
+        const catCancelBtn = document.querySelector('.cancel-btn')
+        const catBar = document.querySelector('.cat-link')
+
+        catBtn.addEventListener('click', () => {
+
+            catBtn.style.display = 'none'
+            catCancelBtn.style.display = 'block'
+            catBar.classList.add('show-nav')
+
+        })
+
+        catCancelBtn.addEventListener('click', () => {
+            catBtn.style.display = 'block'
+            catCancelBtn.style.display = 'none'
+            catBar.classList.remove('show-nav')
+        })
+
+
+    </script>
+
+</body>
+{%endblock%}

@@ -1,0 +1,401 @@
+{%extends './base.html'%}
+{%load static%}
+{%block title%} Home {%endblock%}
+{%block content%}
+
+<head>
+    <link rel="stylesheet" href="{%static 'css/homepage.css'%}">
+    <style>
+        #comment,
+        .like-form {
+            width: 13%;
+            font-size: 20px;
+        }
+
+        .banner {
+            margin-top: 7rem;
+
+        }
+
+        .text {
+           border: 1px solid;
+
+        }
+      
+        
+
+        /* .search-section form{
+        position: fixed;
+        z-index: 3;
+     } */
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="search-section">
+        <form class="search2" action="" method="get">
+            <input type="text" name="search-area" class="text" placeholder="search posts here">
+
+            <i class="fa fa-search"></i>
+
+        </form>
+    </div>
+
+    <section class="banner">
+
+        {%if not userpost%}
+        <div class="banner-main-content">
+            <font color="blue">
+                <h1 id="latest">Share Your Life Expriences</h1 id="latest">
+            </font>
+
+            <div class="addm">
+                <a id="save-btn" href="{%url 'post-create'%}">ADD POST NOW</a>
+
+            </div>
+
+            <h2 id="latest">Top Stories</h2>
+
+            <div class="current-news-head">
+                <hr>
+                {%if sport%}
+                <a id="detail" href="{%url 'post-detail' sport.id%}">
+                    <h2 id="top-head">{{sport.title}}</h2>
+                    <h3>{{sport.discription}} <span>Sport</span></h3>
+                </a>
+                {%endif%}
+                <hr>
+                {%if entertainment%}
+                <a id="detail" href="{%url 'post-detail' entertainment.id%}">
+                    <h2 id="top-head">{{entertainment.title}}</h2>
+                    <h3>{{entertainment.discription}} <span>entertainment</span></h3>
+                </a>
+
+                {%endif%}
+                <hr>
+                {%if science%}
+
+                <a id="detail" href="{%url 'post-detail' science.id%}">
+                    <h2 id="top-head">{{science.title}}</h2>
+                    <h3>{{science.discription}} <span>science</span></h3>
+                </a>
+                {%endif%}
+                <hr>
+                {%if other%}
+
+                <a id="detail" href="{%url 'post-detail' other.id%}">
+                    <h2 id="top-head">{{other.title}}</h2>
+                    <h3>{{other.discription}} <span>other</span></h3>
+                </a>
+                {%endif%}
+                <hr>
+                {%if technology%}
+
+                <a id="detail" href="{%url 'post-detail' technology.id%}">
+                    <h2 id="top-head">{{technology.title}}</h2>
+                    <h3>{{technology.discription}} <span>technology</span></h3>
+                </a>
+                {%endif%}
+                <hr>
+                {%if fashion%}
+
+                <a id="detail" href="{%url 'post-detail' fashion.id%}">
+                    <h2 id="top-head">{{fashion.title}}</h2>
+                    <h3>{{fashion.discription}} <span>fashion</span></h3>
+                </a>
+                {%endif%}
+                <hr>
+            </div>
+        </div>
+        {%endif%}
+        <div class="banner-sub-content">
+            {%if sport%}
+            <a href="{%url 'post-category' 'sports'%}">
+
+                <div style="background-image:
+                linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                url('{{sport.get_image_url}}'); " class="hot-topic">
+
+
+
+                    <div class="hot-topic-content">
+
+                        <h1>{{sport.catagory}}</h1>
+                        <h2>{{sport.title|title}}</h2>
+                        <p> {{sport.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+            {%if entertainment%}
+            <a href="{%url 'post-category' 'entertainment'%}">
+                <div style="background-image:
+                                linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                                url('{{entertainment.get_image_url}}'); " class="hot-topic">
+                    <div class="hot-topic-content">
+
+                        <h1>{{entertainment.catagory}}</h1>
+                        <h2>{{entertainment.title|title}}</h2>
+                        <p> {{entertainment.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+
+            {%if fashion%}
+            <a href="{%url 'post-category' 'fashion'%}">
+
+                <div style="background-image:
+                                linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                                url('{{fashion.get_image_url}}'); " class="hot-topic">
+
+
+
+                    <div class="hot-topic-content">
+
+                        <h1>{{fashion.catagory}}</h1>
+                        <h2>{{fashion.title|title}}</h2>
+                        <p> {{fashion.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+
+            {%if science%}
+            <a href="{%url 'post-category' 'science'%}">
+                <div style="background-image:
+                            linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                            url('{{science.get_image_url}}'); " class="hot-topic">
+
+
+
+                    <div class="hot-topic-content">
+
+                        <h1>{{science.catagory}}</h1>
+                        <h2>{{science.title|title}}</h2>
+                        <p> {{science.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+
+            {%if technology%}
+            <a href="{%url 'post-category' 'technology'%}">
+                <div style="background-image:
+                            linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                            url('{{technology.get_image_url}}'); " class="hot-topic">
+
+
+
+                    <div class="hot-topic-content">
+
+                        <h1>{{technology.catagory}}</h1>
+                        <h2>{{technology.title|title}}</h2>
+                        <p> {{technology.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+            {%if other%}
+            <a href="{%url 'post-category' 'other'%}">
+                <div style="background-image:
+                            linear-gradient(transparent 20%,rgb(51, 51, 51)),
+                            url('{{other.get_image_url}}'); " class="hot-topic">
+
+
+                    <div class="hot-topic-content">
+
+                        <h1>{{other.catagory}}</h1>
+                        <h2>{{other.title|title}}</h2>
+                        <p> {{other.slug}}</p>
+
+                    </div>
+
+                </div>
+            </a>
+            {%endif%}
+        </div>
+    </section>
+
+    <section class="Latest Posts">
+        <div class="most-like-all-wrapper">
+            {%if userpost%}
+            <h1 id="ml-header"></h1>
+            {%elif search%}
+            <h1 id="ml-header">{{post.count}} result for "{{search}}"</h1>
+            {%else%}
+            <h1 id="ml-header">Latest Posts({{post.count}})</h1>
+            {%endif%}
+            <div class="most-like">
+                {%for post in post%}
+                <section class="most-liked-container">
+                    <a href="{%url 'post-detail' post.id%}">
+
+                        <div class="liked-post-image">
+                            {%if post.videos%}
+                            <div class="posted-video">
+                                <video src="{{post.video.url}}" height="200" spellcheck="true" controls></video>
+                                <i class="fa-solid fa-video"> <br>
+                                    <span id="span-video">PLAY VIDEO</span></i>
+                            </div>
+
+
+                            {%else%}
+                            <img src="{{post.get_image_url}}" height="200px">
+                            {%endif%}
+                        </div>
+
+                        <div class="liked-about-posts">
+                            <br>
+                            <span>#{{post.catagory|upper}}</span>
+                            {%if request.user == post.user%}
+                            <h6>
+                                <a href="{%url 'profile'  %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%else%}
+                            <h6>
+                                <a href="{%url 'get-profile' post.user.id %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%endif%}
+                            <div class="ct-like">
+                                <a id="comment" title="Comments" href="{%url 'view-comment' post.pk%}">
+                                    <i class="fa fa-comment"><span>{{post.comment.all.count}}</span></i>
+                                </a>
+                                {%if request.user.is_authenticated%}
+                                <form action="{%url 'like_post' post.id%}" class="like-form" method="POST"
+                                    id="{{post.id}}">
+                                    {%csrf_token%}
+                                    <button type="submit" id="like-btn" name="post_id" value="{{post.id}} "
+                                        class="ui like-btn{{post.id}}">
+                                        {%if not request.user in post.liked.all %}
+                                        <i id="not-liked{{post.id}}" class="fa fa-thumbs-up"></i>
+                                        {%else%}
+                                        <i id="liked{{post.id}}" style="color:blue" class="fa fa-thumbs-up"></i>
+                                        {%endif%}
+                                        <span id="count" class="like-count1{{post.id}}">{{post.liked.all.count}} </span>
+                                    </button>
+                                </form>
+                                {%else%}
+                                <a href="{%url 'login'%}" id="like-btn" class="ui like-btn">
+                                    <i id="not-liked{{post.id}}" class="fa fa-thumbs-up"></i>
+                                    <span id="count" class="like-count1{{post.id}}">{{post.liked.all.count}} </span>
+                                </a>
+                                {%endif%}
+                            </div>
+
+
+                            <a id="detail" href="{%url 'post-detail' post.id%}">
+                                <h3 id='posts-title'>{{post.title|truncatewords:10|title}}</h3>
+                                <br>
+                                <p id="">{{post.discription|truncatewords:20}}</p>
+                            </a>
+
+                        </div>
+
+                        <br>
+                    </a>
+                </section>
+
+                {%endfor%}
+            </div>
+
+        </div>
+    </section>
+    {%if mostLiked%}
+    <section class="the-most-liked">
+        <div class="most-like-all-wrapper">
+            <h1 id="ml-header">Most Liked</h1>
+
+            <div class="most-like">
+                {%for post in mostLiked%}
+                <a href="{%url 'post-detail' post.id%}">
+                    <section class="most-liked-container">
+
+
+                        {%if post.videos%}
+                        <div class="posted-video">
+                            <video src="{{post.video.url}}" height="200" spellcheck="true" controls></video>
+                            <i class="fa-solid fa-video"> <br>
+                                <span id="span-video">PLAY VIDEO</span></i>
+                        </div>
+
+
+                        {%else%}
+                        <img src="{{post.get_image_url}}" height="200px">
+                        {%endif%}
+                        <br>
+                        <div class="liked-about-posts">
+                            <br>
+                            <span>#{{post.catagory|upper}}</span>
+                            {%if request.user == post.user%}
+                            <h6>
+                                <a href="{%url 'profile'  %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%else%}
+                            <h6>
+                                <a href="{%url 'get-profile' post.user.id %}">#{{post.user|upper}} </a> |
+                                {{post.whenupdated}}
+                            </h6>
+                            {%endif%}
+                            <div class="ct-like">
+                                <a id="comment" title="Comments" href="{%url 'view-comment' post.pk%}">
+                                    <i class="fa fa-comment"><span>{{post.comment.all.count}}</span></i>
+                                </a>
+                                <form action="{%url 'like_post' post.id%}" class="like-form" method="POST"
+                                    id="{{post.id}}">
+                                    {%csrf_token%}
+                                    <button type="submit" id="like-btn" name="post_id" value="{{post.id}}"
+                                        class="ui like-btn{{post.id}}">
+                                        {%if not request.user in post.liked.all %}
+                                        <i id="not-liked1{{post.id}}" class="fa fa-thumbs-up"></i>
+                                        {%else%}
+                                        <i id="liked1{{post.id}}" class="fa fa-thumbs-up"></i>
+                                        {%endif%}
+                                        <span id="count" class="like-count{{post.id}}">{{post.liked.all.count}} </span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <a id="detail" href="{%url 'post-detail' post.id%}">
+                                <h3 id='posts-title'>{{post.title|truncatewords:10|title}}</h3>
+                                <br>
+                                <p id="">{{post.discription|truncatewords:20}}</p>
+                            </a>
+
+
+                        </div>
+
+
+                        <br>
+
+                    </section>
+
+                </a>
+                {%endfor%}
+            </div>
+
+        </div>
+    </section>
+    {%endif%}
+    <script>
+
+
+    </script>
+</body>
+{%endblock%}

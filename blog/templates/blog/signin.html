@@ -1,0 +1,84 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+
+<head>
+    {%load static %}
+    <!-- <link rel="stylesheet" href="{%static 'forms.css'%}"> -->
+    <style>
+        * {
+            outline: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+        button {
+            outline: none;
+            border: none;
+
+        }
+
+        #save-btn,
+        p,
+        label {
+            color: rgb(2, 2, 2);
+        }
+
+        form a {
+            color: rgb(250, 0, 0);
+        }
+
+        .form-box,
+        .head-bar {
+            width: 30%;
+
+        }
+
+        .head-bar a {
+            color: white;
+        }
+
+        li {
+            color: red;
+           
+        }
+
+        p {
+            line-height: 1;
+        }
+
+
+
+        .helptext {
+            display: none;
+        }
+        @media (max-width: 941px) {
+
+      .head-bar,
+      .form-box {
+        width: 100%;
+      }
+    }
+    </style>
+</head>
+
+
+<div class="head-bar">
+    <h3>Login Now</h3>
+    <button id="add-icon"><a href="javascript:history.go(-1)"><i class="fa fa-times"></i></a></button>
+
+</div>
+<div class="form-box">
+
+    <form action="" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <br>
+        <button type="submit" id="save-btn">Login</button>
+        <a id='save-btn' href="{%url 'password-reset'%}">Forgot Password?</a>
+    </form>
+    <p>Don't have an account ? <a href="{%url 'signup'%}">Register</a></p>
+</div>
+
+{%endblock%}

@@ -1,0 +1,157 @@
+.head-bar {
+  width: 80%;
+  flex-wrap: wrap;
+}
+
+/* body {
+      background-color: rgb(43, 42, 42);
+    } */
+
+#header-form {
+  margin-bottom: 1rem;
+}
+
+.social-link,
+.general-info {
+  width: 33%;
+  margin-top: 3rem;
+}
+
+.profile-image a {
+  display: none;
+}
+
+#img-link {
+  display: contents;
+}
+
+.profile-image {
+  margin: 3rem auto;
+  box-shadow: 1px 3px 1px rgb(235, 238, 232);
+  background: linear-gradient(
+    rgb(247, 241, 241),
+    rgb(37, 37, 39),
+    rgb(206, 221, 206)
+  );
+  width: 33%;
+  line-height: 1;
+  text-align: center;
+}
+
+form {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 2rem;
+  box-shadow: rgb(235, 238, 232) 3px 3px 40px;
+  margin-bottom: 7rem;
+  max-width: fit-content;
+}
+
+p {
+  padding-bottom: 1;
+  line-height: 1;
+  width: 90%;
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+}
+
+.addm {
+  margin-top: 10px;
+}
+
+.profile-image img {
+  height: 200px;
+  margin-bottom: 1rem;
+  width: 200px;
+  border-radius: 50%;
+  box-shadow: 1px 3px 2px rgb(235, 238, 232);
+}
+
+input,
+textarea,
+a {
+  margin-top: 0.3rem;
+  padding: 10px;
+  max-width: 90%;
+}
+textarea {
+  min-height: 60px;
+  min-width: 50%;
+}
+x label {
+  font-size: 15px;
+}
+
+h3,
+h2 #save-btn {
+  margin-left: 1rem;
+}
+
+h1,
+span {
+  text-align: center;
+}
+
+#bios {
+  text-align: left;
+  margin-left: 2rem;
+  margin-top: 0.2rem;
+}
+
+#save-btn {
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+form #save-btn {
+  margin-top: 2rem;
+  width: 30%;
+}
+
+@media (max-width: 871px) {
+  form,
+  .social-link,
+  .profile-image,
+  .head-bar,
+  .general-info,
+  input {
+    width: 100%;
+  }
+
+  .profile-image {
+    margin-top: 0rem;
+  }
+
+  .social-link {
+    margin-top: 1rem;
+  }
+
+  .general-info {
+    margin-bottom: 0;
+  }
+
+  .profile-image {
+    align-items: center;
+    text-align: center;
+  }
+
+  #save-btn {
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+    margin-right: 1rem;
+  }
+
+  form #save-btn {
+    width: 100%;
+  }
+
+  .head-bar #save-btn {
+    margin-left: 0;
+    width: 5%;
+    margin-right: 0rem;
+  }
+}

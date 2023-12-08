@@ -1,0 +1,480 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Blog | {%block title%}{%endblock%}</title>
+  {%load static%}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  <link rel="stylesheet" href="{%static 'main.css'%}" />
+  <!-- google fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+  <!-- fontawesome -->
+  <link
+    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    rel="stylesheet"
+  />
+  <script
+    src="https://kit.fontawesome.com/dbed6b6114.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://kit.fontawesome.com/80bca6246d.js"
+    crossorigin="anonymous"
+  ></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    #save-btn {
+      /* margin-right: 10px; */
+      margin: auto;
+      margin-bottom: 1rem;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-family: "calibri";
+      outline: none;
+      border: none;
+      background-color: rgba(151, 140, 140, 0.1);
+      color: black;
+      transition: background-color 0.5s, color 0.5s;
+    }
+
+    .search-section i {
+      font-size: 20px;
+      padding-top: 10px;
+      padding: 5px;
+      background-color: beige;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border: 1px solid;
+    }
+
+    .search-section form {
+      margin-top: 3rem;
+      text-align: right;
+      /* padding-top: 2px; */
+
+      position: fixed;
+      top: 0;
+      right: 2px;
+      width: 20%;
+      z-index: 3;
+    }
+
+    header {
+      margin: 0;
+      z-index: 3;
+      width: 100%;
+      top: 0;
+      position: fixed;
+    }
+
+    #edit-btn {
+      color: green;
+    }
+
+    #delete-btn {
+      color: red;
+    }
+
+    li a {
+      transition: 0.5s ease-in-out;
+    }
+
+    .most-like-container a:hover {
+      text-decoration: underline;
+    }
+
+    li a:hover {
+      background-color: rgba(136, 133, 133, 0.1);
+    }
+
+    #save-btn:hover {
+      background-color: rgb(230, 219, 215);
+      color: white;
+    }
+
+    #add-icon {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-family: "calibri";
+      background-color: orangered;
+      border-radius: 3%;
+      margin-left: 1rem;
+    }
+
+    #back-btn {
+      color: blue;
+      font-size: 38px;
+      padding: 10px 5px;
+    }
+
+    /* #add-post {
+      background-color: orangered;
+      font-size: 18px;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 3%;
+
+    } */
+
+    .add {
+      margin-top: 1.5rem;
+      margin-left: 10rem;
+    }
+
+    .addm {
+      margin-top: 10px;
+    }
+
+    .form-box {
+      margin: auto;
+      display: grid;
+      box-shadow: whitesmoke 3px 3px 30px 0.1px;
+      margin-bottom: 5rem;
+      padding: 20px;
+    }
+
+    .form-box p {
+      line-height: 2;
+    }
+
+    .head-bar {
+      margin: 6rem auto 3rem auto;
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+
+      box-shadow: 3px 15px 20px rgba(136, 133, 133, 0.1);
+      padding: 10px;
+    }
+
+    label {
+      color: green;
+      font-size: 20px;
+      font-weight: 500;
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+    }
+
+    select {
+      padding: 5px;
+      width: 100%;
+      margin: auto;
+    }
+
+    textarea {
+      width: 100%;
+      max-height: 100px;
+      padding: 10px;
+      max-width: 100%;
+    }
+
+    p {
+      padding: 0px;
+      line-height: 3;
+      width: 100%;
+    }
+
+    .about-us {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .dev1 {
+      box-shadow: 1px 3px 1px rgba(136, 133, 133, 0.1);
+      width: 30%;
+      margin-right: 1rem;
+      border: 1px solid;
+      margin: auto;
+      height: 300px;
+      margin-bottom: 3rem;
+    }
+
+    #like-btn,
+    .fa-thumbs-up {
+      transition: 0.5s ease-in;
+    }
+
+    .fa-thumbs-up:hover {
+      color: blue;
+      font-size: 22px;
+    }
+
+    .fa-thumbs-up {
+      color: gray;
+    }
+
+    .fa-facebook {
+      color: blue;
+    }
+
+    .fa-instagram {
+      color: violet;
+    }
+
+    .fa-twitter {
+      color: rgb(125, 125, 247);
+    }
+
+    .fa-youtube {
+      color: red;
+    }
+
+    .fa-telegram {
+      color: rgb(61, 61, 207);
+    }
+
+    @media (max-width: 941px) {
+      .head-bar,
+      .form-box {
+        width: 100%;
+      }
+
+      p {
+        line-height: 2;
+      }
+
+      #save-btn {
+        width: 100%;
+
+        margin-right: 2rem;
+      }
+
+      .search-section form {
+        margin-top: 3rem;
+        text-align: right;
+        margin-top: 4rem;
+
+        position: fixed;
+        top: 0;
+        right: 2px;
+        width: 100%;
+        z-index: 3;
+      }
+
+      .cat-btn i {
+        margin-top: 3rem;
+      }
+
+      .cat-link i {
+        margin-top: 3rem;
+        color: red;
+        margin-right: 4px;
+      }
+
+      .show-nav {
+        margin-top: 2rem;
+      }
+    }
+
+    .social-icons ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="navigation-container">
+      <div class="top-head">
+        <div class="web-name"></div>
+
+        <div class="ham-btn">
+          <span>
+            <i class="fas fa-bars"></i>
+          </span>
+        </div>
+
+        <div class="times-btn">
+          <span>
+            <i class="fas fa-times"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- nav bar -->
+
+      <div class="nav-bar" id="nav-bar">
+        <nav>
+          <ul>
+            <li><a href="{%url 'home'%}">home</a></li>
+
+            <!-- <li><a href = "adv.html">Advertise</a></li> -->
+            <li><a href="{%url 'post-category' 'all'%}">all Posts</a></li>
+
+            {%if request.user.is_active%}
+            <li>
+              <a href="{%url 'profile'%}"><i class="fa fa-user"></i> Profile</a>
+            </li>
+            <li><a href="{%url  'post-category' 'video'%}">Videos</a></li>
+            <li>
+              <a href="{%url  'post-category' 'your-posts'%}">Your Posts</a>
+            </li>
+            {%if request.user.is_superuser%}
+            <li><a href="{%url  'users' %}">All user</a></li>
+            {%endif%}
+            <li><a href="{%url 'signout'%}">Logout</a></li>
+
+            {%else%}
+            <li><a id="" href="{%url 'login'%}"> Login </a></li>
+            {%endif%}
+            <li>
+              <a id="add-post" href="{%url 'post-create'%}">Add Post</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!--social icons -->
+    </div>
+  </header>
+  <div class="add"></div>
+  <div>{%block content%} {%endblock%}</div>
+
+  <!-- <div class="about-us">
+    <div class="dev1">
+      Muse
+    </div>
+    <div class="dev1">
+      Buze
+    </div>
+    <div class="dev1">
+      Messi
+    </div>
+  </div> -->
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <font color="red">
+          <h1>Dreams Blog</h1>
+        </font>
+        <p>
+          This is an official site of dreams blog . you can get every posts
+          regarding to day to day events. In our website Sports, Business,
+          Science, Entertainment and others are included.!
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <font color="red">
+          <h2>CONTACT</h2>
+        </font>
+        <p>
+          Subscribe to Our Blog! For any information regarding to our dreams
+          mail us here! click the icon below.Thankyou!
+        </p>
+
+        <div class="social-icons">
+          <ul>
+
+            <li>
+              <a href="https://github.com/Muse-Semu" target="_blank" S
+                ><i class="fab fa-github"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/semu-muse-582a36280/"
+                target="_blank"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+            </li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p>Copyright &copy; 2022 rights reserved | Dreams Blog</p>
+  </footer>
+
+  <script>
+    const btnHam = document.querySelector(".ham-btn");
+    const btnTimes = document.querySelector(".times-btn");
+    const navBar = document.getElementById("nav-bar");
+
+    btnHam.addEventListener("click", function () {
+      if (btnHam.className !== "") {
+        btnHam.style.display = "none";
+        btnTimes.style.display = "block";
+        navBar.classList.add("show-nav");
+      }
+    });
+
+    btnTimes.addEventListener("click", function () {
+      if (btnHam.className !== "") {
+        this.style.display = "none";
+        btnHam.style.display = "block";
+        navBar.classList.remove("show-nav");
+      }
+    });
+
+    $(document).ready(function () {
+      $(".like-form").submit(function (e) {
+        e.preventDefault();
+        var post_id = $(this).attr("id");
+        let res, res1;
+        var url = $(this).attr("action");
+        var likeCount = $(`.like-count${post_id}`).text();
+        var likeCount1 = $(`.like-count1${post_id}`).text();
+        const trimCount = parseInt(likeCount);
+        const trimCount1 = parseInt(likeCount1);
+        var notLiked = $(`#not-liked${post_id}`);
+        var liked = $(`#liked${post_id}`);
+        var notLiked1 = $(`#not-liked1${post_id}`);
+        var liked1 = $(`#liked1${post_id}`);
+
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: {
+            post_id: post_id,
+            csrfmiddlewaretoken: window.CSRF_TOKEN,
+          },
+
+          success: function (datas) {
+            console.log(datas.user_id);
+            if (datas.user_id >= 1) {
+              if (datas.liked === true) {
+                res1 = trimCount1 + 1;
+                res = trimCount + 1;
+                notLiked.css("color", "blue");
+                notLiked1.css("color", "blue");
+                liked.css("color", "blue");
+                liked1.css("color", "blue");
+              } else {
+                notLiked.css("color", "gray");
+                liked.css("color", "gray");
+                notLiked1.css("color", "gray");
+                liked1.css("color", "gray");
+                res = trimCount - 1;
+                res1 = trimCount1 - 1;
+              }
+              $(`.like-count${post_id}`).text(res + "");
+              $(`.like-count1${post_id}`).text(res1 + "");
+            } else {
+              console.log("please login");
+            }
+          },
+        });
+      });
+    });
+  </script>
+</body>

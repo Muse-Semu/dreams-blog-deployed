@@ -1,0 +1,281 @@
+{%extends 'blog/base.html'%}
+{%block title%} Profile {%endblock%}
+{%block link%}
+{%endblock%}
+{%block content%}
+
+<head>
+    <style>
+        .head-bar {
+
+            width: 70%;
+            flex-wrap: wrap;
+
+        }
+
+        /* body {
+      background-color: rgb(43, 42, 42);
+    } */
+
+
+
+        .profile-image {
+
+            box-shadow: 1px 3px 1px rgb(235, 238, 232);
+            width: 47%;
+            line-height: 1;
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+
+        .general-info {
+            width: 47%;
+            margin-top: 3rem;
+            margin-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+
+        .profile-container {
+            width: 70%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            box-shadow: rgb(235, 238, 232) 3px 3px 40px;
+            margin-bottom: 7rem;
+
+        }
+
+        p {
+            padding-bottom: 1;
+            line-height: 1;
+            width: 90%;
+            margin-left: 1rem;
+            margin-top: 0.3rem;
+
+        }
+
+        .addm {
+            margin-top: 10px;
+
+        }
+
+        .profile-image img {
+            margin-top: 2rem;
+            height: 200px;
+            margin-bottom: 1rem;
+            width: 200px;
+            border-radius: 50%;
+            box-shadow: 1px 3px 2px rgb(235, 238, 232);
+        }
+
+
+
+
+        label {
+            font-size: 20px;
+
+        }
+
+
+        h2 #save-btn {
+            margin-left: 1rem;
+        }
+
+        h1,
+        span {
+            text-align: center;
+        }
+
+        #fields {
+            margin-top: 1rem;
+            margin-right: 1rem;
+        }
+
+
+
+
+        #bios {
+            text-align: left;
+            width: 90%;
+            margin-left: 2rem;
+            margin-top: .2rem;
+        }
+
+        #save-btn {
+            margin: auto;
+            margin-bottom: 2rem;
+        }
+
+        .profile-container #save-btn {
+            width: 30%;
+        }
+
+        .social-link {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link i {
+            font-size: 40px;
+            margin-left: 1rem;
+        }
+
+
+
+        @media (max-width: 871px) {
+
+            .profile-container,
+            .social-link,
+            .profile-image,
+            .head-bar,
+            .general-info,
+            input {
+                width: 100%;
+
+            }
+
+            .profile-image {
+
+                margin-top: 0rem;
+            }
+
+            .social-link {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+
+
+
+            .general-info {
+                margin-bottom: 0;
+            }
+
+            .profile-image {
+                align-items: center;
+                text-align: center;
+            }
+
+            #save-btn {
+
+                margin-left: 1rem;
+                margin-bottom: 2rem;
+                margin-top: 3rem;
+                margin-right: 1rem;
+            }
+
+            .profile-container #save-btn {
+                width: 100%;
+            }
+
+            .head-bar #save-btn {
+                margin-left: 0;
+                width: 5%;
+                margin-right: 0rem;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="head-bar">
+        <h1>Profile</h1>
+        <div class="addm">
+
+            <a id="back-btn" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a>
+        </div>
+
+    </div>
+
+    <div class="profile-container">
+
+        <div class="profile-image">
+            {%if user.profile.photo%}
+            <a href="{{user.profile.photo.url}}" target="_blank"><img src="{{user.profile.photo.url}}" alt=''></a>
+        {%endif%}
+            <h1>{{user.username}}</h1>
+            <br>
+            <h3 id="bios" >BIOS :</h3>
+            {%if user.profile.bios%}
+            <p id="bios">{{user.profile.bios}}</p><br>
+            {%else%}
+            <h4 id="bios">None</h4>
+            {%endif%}
+
+
+        </div>
+        <div class="general-info">
+            <h3 id="header-form">General Ingormation</h3>
+            <div id="fields">
+                <label for="">Email : </label><br>
+                <h4><a href="">{{user.email}}</a></h4>
+                <br>
+            </div>
+            <div id="fields">
+                <label for="">First-Name : </label> <br>
+                <input type="text" value="{{user.first_name}}" readonly>
+            </div>
+            <div id="fields">
+                <label for=""> Last-Name : </label>
+                <input type="text" value="{{user.last_name}}" readonly>
+            </div>
+
+            <div class="social-link">
+                <h3 id="header-form">Get User </h3>
+                {%if user.profile.youtube_url%}
+                <a href="{{user.profile.youtube_url}}" target="_blank"><i class="fab fa-youtube"></i> </a>
+                {%endif%}
+                {%if user.profile.facebook_url%}
+                <a href="{{user.profile.facebook_url}}"><i class="fab fa-facebook" target="_blank"></i></a>
+                {%endif%}
+                {%if user.profile.twitter_url%}
+                <a href="#"><i class="fab fa-twitter" target="_blank"></i></a>
+                {%endif%}
+                {%if user.profile.instagram_url%}
+                <a href="{{user.profile.instagram_url}}" target="_blank" S><i class="fab fa-instagram">
+
+                    </i></a>
+                {%endif%}
+                {%if user.profile.telegram_url%}
+                <a href="{{user.profile.telegram_url}}" target="_blank" S><i class="fab fa-telegram"></i></a>
+                {%endif%}
+            </div>
+
+            <div class="user-permission">
+                <h3 id="header-form">User Permission</h3>
+
+                {%if user.is_superuser and user.is_active%}
+                <h3 style="color:rgb(9, 32, 243)">Superuser</h3>
+                {%elif user.is_staff and user.is_active%}
+                <h3 style="color:rgb(0, 255, 179)">Staff</h3>
+                {%elif user.is_active%}
+                <h3 style="color:rgb(9, 255, 0)">Active</h3>
+                {%else%}
+                <h3 style="color:red">Deactivated</h3>
+                {%endif%}
+                <br>
+                {%if request.user.is_superuser%}
+                <a id="save-btn" href="{%url 'edit_user' user.id%}">Edit User Permissions</a>
+                {%endif%}
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+</body>
+{%endblock%}

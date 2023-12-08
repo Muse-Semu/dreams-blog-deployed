@@ -1,0 +1,172 @@
+{% extends 'blog/base.html'%}
+{%block title%} Comments {%endblock%}
+{%block content%}
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrapper {
+            margin-bottom: 8rem;
+        }
+
+        .form-box,
+        .head-bar {
+            width: 60%;
+
+        }
+
+        .addm {
+            margin-top: 0;
+            margin-bottom: .3rem;
+        }
+
+        .form-box {
+            display: flex;
+            flex-wrap: wrap;
+            padding: .5rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .form-box img {
+            width: 50;
+            height: 50;
+            border-radius: 50%;
+            line-height: 1;
+
+        }
+
+        .replies a {
+            text-align: right;
+        }
+
+        .comment-section {
+            margin: auto;
+            display: flex;
+        }
+
+        .user-comment {
+            display: grid;
+            width: 10%;
+
+            margin-right: 1rem;
+
+        }
+
+        #rep-a {
+            font-size: 10px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        #date {
+            padding-left: 0;
+        }
+
+
+        .comment-detail {
+
+            width: 85%;
+        }
+
+        .comment-detail p {
+            margin-right: 1;
+
+        }
+
+        #full-comment,
+        #hide {
+            display: none;
+        }
+
+
+        h6 {
+            padding-left: 10px;
+            line-height: 1;
+        }
+
+        h5 {
+            text-align: right;
+        }
+
+        strong {
+            text-align: right;
+        }
+
+        @media (max-width: 500px) {
+
+            .head-bar,
+            .form-box {
+                width: 100%;
+
+            }
+
+            .user-comment {
+                margin-right: 1.5rem;
+            }
+
+            .comment-detail {
+
+                width: 70%;
+            }
+
+
+        }
+    </style>
+</head>
+
+<div class="wrapper">
+    <div class="head-bar">
+        <h3>Comments</h3>
+        <div class="addm">
+            <a id="save-btn" href="{%url 'add-comment' id%}">&#x2b;ADD</a>
+            <a id="back-btn" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a>
+        </div>
+
+    </div>
+    {%for comment in comment%}
+    <div class="form-box">
+
+
+        <div class="user-comment">
+            <div>
+                <img src="{{comment.user.profile.photo.url}}" alt="" id="pro-pic" width="40" height="40">
+                <h6> {{comment.user|title}} </h6>
+            </div>
+
+        </div>
+
+
+
+        <div class="comment-detail">
+            <h6 id="date">{{comment.whenpublished}}</h6>
+
+
+            {%if comment.comment|wordcount > 50%}
+            <p id="com">{{comment.comment|truncatewords:50}}</p>
+            <!-- <button id="read-more" ) >read more</button>  -->
+            <!-- <button id="hide" onclick>Hide</button> -->
+            {%else%}
+            <p>{{comment.comment}}</p>
+            {%endif%}
+
+            <a id="rep-a" href="{%url 'view-reply' comment.id%}">{{comment.reply.count}} Replies |</a>
+            {%if request.user == comment.user%}
+            <a id="edit-btn" href="{%url 'edit-comment' comment.id%}"><i class="fas fa-edit"></i></a>
+            <a id="delete-btn" href="{%url 'delete-comment' comment.id%}"><i class="fa fa-trash"
+                    aria-hidden="true"></i></a>
+
+            {%else%}
+            <a id="rep-a" href="{%url 'add-reply' comment.id%}">Reply</a>
+            {%endif%}
+
+        </div>
+    </div>
+    {%endfor%}
+
+</div>
+
+{%endblock%}

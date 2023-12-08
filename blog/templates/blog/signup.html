@@ -1,0 +1,50 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+
+<head>
+    <style>
+        .form-box,.head-bar{
+            width: 40%;
+            display: flex;
+        }
+       
+      
+         p{
+        line-height: 1;
+       }
+        button{
+        border: none;
+        outline: none;
+       }
+      
+        @media (max-width: 941px) {
+
+      .head-bar,
+      .form-box {
+        width: 100%;
+      }
+    }
+    </style>
+
+</head>
+
+<div class="head-bar">
+    <h3>Register Here</h3>
+    <button id="add-icon"><a href="javascript:history.go(-1)"><i class="fa fa-times"></i></a></button>
+</div>
+<div class="form-box">
+    
+    <form action="" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+
+        <button type="submit" id="save-btn">Register</button>
+        {%if not user.is_authenticated%}
+        
+        <p> have an account already? <a href="{% url 'login'%}">Login</a></p>
+        {%endif%}
+    </form>
+</div>
+
+{%endblock content%}

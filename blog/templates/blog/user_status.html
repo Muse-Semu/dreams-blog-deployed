@@ -1,0 +1,58 @@
+{%extends 'blog/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+
+<head>
+    <style>
+        span {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+
+        }
+
+       
+
+        .form-box,
+        .head-bar {
+            width: 60%;
+        }
+
+        #save-btn {
+            margin-top: 1rem;
+        }
+
+
+        @media (max-width: 941px) {
+
+            .head-bar,
+            .form-box {
+                width: 100%;
+            }
+
+            p {
+                line-height: 2;
+            }
+
+        }
+    </style>
+</head>
+<div class="head-bar">
+    <h3>Manage User Status</h3>
+    <a id="add-icon" href="javascript:history.go(-1)"><i class="fa fa-times"></i></a>
+</div>
+
+<div class="form-box">
+    <h3>{{user.username}}</h3>
+    <h4>{{user.email}}</h4>
+    <form action="" method="post" class="edit-status-form">
+        {%csrf_token%}
+        {{form|safe}}
+        <input type="submit" name="submit" id="save-btn" value="Save ">
+    </form>
+</div>
+
+{%endblock%}

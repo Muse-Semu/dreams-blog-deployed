@@ -1,0 +1,41 @@
+{%extends './base.html'%}
+{%load static%}
+{%block content%}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+<div>
+    <h1>Submit Form</h1>
+    
+    <div >
+       <form action="">
+        
+       </form>
+    </div>
+    
+   
+</div>
+<script >
+    $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "{%url 'json-list'%}",
+                    success: function (response) {
+                         $(".display").empty();
+                        for (var key in response.posts){
+                           var temp = "<h3>"+response.posts[key].title+"</h3>"
+                          
+                           $(".display").append(temp);
+                        }
+                       
+                    },
+                    error: function (error) {
+                        console.log('Error occered')
+                    }
+                })
+            }, 1000);
+        });
+</script>
+{%endblock%}
